@@ -1,1 +1,1 @@
-# golang_REST_api
+# golang_sns_app
