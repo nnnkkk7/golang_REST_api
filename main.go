@@ -5,7 +5,6 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
 	"log"
-	"strings"
 )
 
 type Tweet struct {
@@ -13,7 +12,7 @@ type Tweet struct {
 	Content string
 }
 
-func Init() {
+func dbInit() {
 	db, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3306)/test?parseTime=true")
 	if err != nil {
 		log.Fatal(err)
@@ -48,12 +47,16 @@ func GetAll() ([]Tweet, error) {
 func main() {
 	e := echo.New()
 
-	Init()
+	dbInit()
 
 	e.GET("/", func(c echo.Context) {
 		tweets, _ := GetAll()
-		s := strings.Join(tweets, ",")
-		c.String(200, s)
+	})
+
+	e.POST("/new", func(c echo.Context) {
+		content := c.FormValue("content")
+		dbInsert(content)
+		c.Redirect(200, "/")
 	})
 
 }
