@@ -52,14 +52,16 @@ func main() {
 
 	dbInit()
 
-	e.GET("/", func(c echo.Context) {
+	e.GET("/", func(c *echo.Context) {
 		tweets, _ := GetAll()
 	})
 
-	e.POST("/new", func(c echo.Context) {
+	e.POST("/new", func(c *echo.Context) {
 		content := c.FormValue("content")
 		dbInsert(content)
 		c.Redirect(200, "/")
 	})
+
+	e.Start(":8080")
 
 }
