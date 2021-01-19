@@ -12,6 +12,7 @@ type Tweet struct {
 	Content string
 }
 
+// DB接続の処理
 func dbInit() {
 	db, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3306)/test?parseTime=true")
 	if err != nil {
@@ -21,6 +22,7 @@ func dbInit() {
 	db.AutoMigrate(&Tweet{})
 }
 
+//　DBにインサート
 func dbInsert(content string) error {
 	db, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3306)/test?parseTime=true")
 	if err != nil {
@@ -31,6 +33,7 @@ func dbInsert(content string) error {
 	return nil
 }
 
+//　情報を取得
 func GetAll() ([]Tweet, error) {
 	db, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3306)/test?parseTime=true")
 	if err != nil {
