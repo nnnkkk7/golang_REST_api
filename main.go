@@ -1,10 +1,11 @@
 package main
 
 import (
+	"log"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
-	"log"
 )
 
 type Tweet struct {
